@@ -21,7 +21,7 @@ export default function App() {
   const [watched, setWatched] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
-  const [query, setQuery] = useState("interstellar");
+  const [query, setQuery] = useState("");
   const [selectedId, setSelectedId] = useState(null);
 
   function handleSelectMovie(id) {
@@ -42,12 +42,15 @@ export default function App() {
 
   useEffect(
     function () {
+      const controller = new AbortController(); //native browser api
+
       async function fetchMovies() {
         try {
           setIsLoading(true);
           setError("");
           const res = await fetch(
-            `http://www.omdbapi.com/?s=${query}&apikey=${KEY}`
+            `http://www.omdbapi.com/?s=${query}&apikey=${KEY}`,
+            { signal: controller.signal }
           );
 
           if (!res.ok)
@@ -56,8 +59,13 @@ export default function App() {
           const data = await res.json();
           if (data.Response === "False") throw new Error("Movie not found");
           setMovies(data.Search);
+          setError("");
         } catch (err) {
-          setError(err.message);
+          //ignore the abort error
+          if (err.name !== "AbortError") {
+            console.log(err.message);
+            setError(err.message);
+          }
         } finally {
           setIsLoading(false);
         }
@@ -68,7 +76,13 @@ export default function App() {
         setError("");
         return;
       }
+      //close selected movie before fetching
+      handleCloseMovie();
       fetchMovies();
+
+      return function () {
+        controller.abort();
+      };
     },
     [query]
   );
