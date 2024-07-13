@@ -1,4 +1,4 @@
-import { useRef, useEffect, useCallback } from "react";
+import { useRef, useEffect } from "react";
 
 export function Search({ query, setQuery }) {
   const inputElement = useRef(null);
