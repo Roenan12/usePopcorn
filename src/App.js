@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from "react";
+import { useState, useCallback } from "react";
 import { Loader } from "./components/Loader";
 import { MovieList } from "./components/MovieList";
 import { WatchedMovieList } from "./components/WatchedMovieList";
