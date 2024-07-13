@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { KEY } from "../App";
 import StarRating from "./StarRating";
 import { Loader } from "./Loader";
+import { useKey } from "../hooks/useKey";
 
 export function MovieDetails({
   selectedId,
@@ -73,24 +74,8 @@ export function MovieDetails({
     [selectedId]
   );
 
-  //Listen to keypress esc
-  useEffect(
-    function () {
-      function callback(e) {
-        if (e.code === "Escape") {
-          onCloseMovie();
-        }
-      }
-
-      document.addEventListener("keydown", callback);
-
-      //clean up so that event listener execute only once
-      return function () {
-        document.removeEventListener("keydown", callback);
-      };
-    },
-    [onCloseMovie]
-  );
+  //close movie details upon pressing Esc
+  useKey("Escape", onCloseMovie);
 
   //Change the page Title according to selected movie
   useEffect(
