@@ -32,10 +32,6 @@ export default function App() {
     setSelectedId((selectedId) => (id === selectedId ? null : id));
   }
 
-  // function handleCloseMovie() {
-  //   setSelectedId(null);
-  // }
-
   function handleAddWatched(movie) {
     setWatched((watched) => [...watched, movie]);
   }
@@ -52,7 +48,6 @@ export default function App() {
       </NavBar>
       <Main>
         <Box>
-          {/* {isLoading ? <Loader /> : <MovieList movies={movies} />} */}
           {isLoading && <Loader />}
           {!isLoading && !error && (
             <MovieList movies={movies} onSelectMovie={handleSelectMovie} />
