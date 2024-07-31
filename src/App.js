@@ -16,7 +16,7 @@ import { useLocalStorageState } from "./hooks/useLocalStorageState";
 export const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 
-export const KEY = "process.env.REACT_APP_SECRET_KEY";
+export const KEY = process.env.REACT_APP_SECRET_KEY;
 
 export default function App() {
   const handleCloseMovie = useCallback(() => {
