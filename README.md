@@ -30,7 +30,7 @@ Follow these steps to clone the repository and set up the project locally:
 * Run the following command to clone the repository:
 
   ```bash
-  git clone https://github.com/yourusername/usepopcorn.git
+  git clone https://github.com/Roenan12/usepopcorn.git
 
 ## 2. Install Dependencies
 * Navigate to the project directory:
